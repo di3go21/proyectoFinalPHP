@@ -45,3 +45,8 @@ VENTA_ARTICULO
     Precio
     Cantidad
     
+
+CAPCHAS
+    id
+    pregunta
+    respuesta

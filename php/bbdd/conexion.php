@@ -1,6 +1,6 @@
 <?php
 function getConexion(){
-    $servidor="mysql";
+    $servidor="localhost";
     $usuarioDB="programaphp";
     $passDB="programaphp";
     $db="tiendaGutiarras";
