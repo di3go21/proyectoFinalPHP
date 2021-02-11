@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página aterrizaje</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" ></script>
+    <script>
+        onload=()=>{
+           // $.getJSON("http://localhost:8080/php/control.php",{},probando);
+
+            $.get("http://localhost:8080/php/registro.php",{nombre:"deigo"},probando);
+        }
+        function probando(data){
+            console.log(data);
+            $("div").html(data.autenticado)
+        }
+    </script>
+</head>
+<body>
+    página de Bienvenida
+    <div></div>    
+</body>
+</html>

@@ -1,0 +1,47 @@
+
+USUARIO
+    id
+    email
+    password
+    nombre
+    apellidos
+    direccion
+    fechaRegistro
+
+CARRITO_USUARIO
+    xIdUsuario
+    xIdProducto
+    Cantidad
+
+FAVORITOS
+    xIdUsuario
+    xIdProducto
+
+ADMIN
+    xUsuario
+    dni
+    fechaUltimoLog
+
+LOGADMINS -- file - usuario - fecha - equipo 
+
+PRODUCTO
+    id
+    nombre
+    descripcion
+    precio
+    unidadesDisponibles
+    
+
+VENTA
+    id
+    xUsuario
+    precioTotal
+    direccionEnvio
+    fecha
+
+VENTA_ARTICULO
+    xVenta
+    xProducto
+    Precio
+    Cantidad
+    
