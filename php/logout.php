@@ -22,6 +22,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['autenticado']=="SI"){
     exit;
 }
 
+
 ?>
 
 

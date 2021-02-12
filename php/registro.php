@@ -104,6 +104,8 @@ if (isset($_POST['enviar'])) {
             $st="";
             $con="";
 
+            header("location: ./login.php");
+            exit;
         }catch(PDOException $e){
             $error=$e->getMessage();
             $pos = strpos($error, "Duplicate entry");
@@ -117,36 +119,6 @@ if (isset($_POST['enviar'])) {
 
 
 
-
-    // validar datos 
-
-
-
-
-    /*
-    $fechaRegistro=date("Y-m-d");
-    
-
-    include "./bbdd/conexion.php";
-
-    $con = getConexion();
-
-    
-    $st=$con->prepare("insert into USUARIO
-         (nombre,apellidos,password,direccion,email,fechaRegistro) values 
-        ('$nombre','$apellidos','$pass','$direccion','$email','$fechaRegistro')");
-    $st->execute();
-
-
-
-    
-    $st=$con->prepare("select * from USUARIO");
-    $st->execute();
-    $resultado=$st->fetchAll(PDO::FETCH_ASSOC);
-
-    echo "<pre>";
-    print_r($resultado);
-   */
 }
 
 

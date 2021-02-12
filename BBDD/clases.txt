@@ -28,9 +28,17 @@ PRODUCTO
     id
     nombre
     descripcion
+    categoria
     precio
     unidadesDisponibles
-    
+
+producto-categoria
+    xProducto
+    xCategoria    
+
+CATEGORIA
+    id 
+    nombre
 
 VENTA
     id

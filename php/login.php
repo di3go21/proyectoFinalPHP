@@ -1,4 +1,5 @@
 <?php
+include "./autenticacion/controlLogin.php";
 include "./includes/sanear.php";
 
 $usuario = "";
@@ -47,7 +48,7 @@ if(isset($_POST['enviar'])){
         }
 
 
-
+        
 
     }
         

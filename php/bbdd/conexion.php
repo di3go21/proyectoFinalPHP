@@ -3,7 +3,7 @@ function getConexion(){
     $servidor="localhost";
     $usuarioDB="programaphp";
     $passDB="programaphp";
-    $db="tiendaGutiarras";
+    $db="tiendaGutiarras2";
     try{
         $dsn="mysql:host=$servidor;dbname=$db;charset=utf8mb4";
         $instanciaCon=new PDO($dsn,$usuarioDB,$passDB);
