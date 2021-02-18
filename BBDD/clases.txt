@@ -44,8 +44,8 @@ VENTA
 VENTA_ARTICULO
     xVenta
     xProducto
-    Precio
-    Cantidad
+    cantidad
+    precio
     
 
 CAPCHAS

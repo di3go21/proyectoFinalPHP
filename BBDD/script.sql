@@ -14,21 +14,21 @@ create table USUARIO (
 
 ) ;
 insert into USUARIO (email,password,nombre,apellidos,direccion,fechaRegistro,esAdmin,puedeRealizarInformes) values 
-    ("admin1@admin.es",md5("123456"),"Diego","Leiva","corona verde","16-09-1990","SI","SI"),
-    ("admin2@admin.es",md5("123456"),"Daniel","Hernandez","corona verde","16-09-1990","SI","NO"),
-    ("admin3@admin.es",md5("123456"),"Oscar","Collado","corona verde","16-09-1990","SI","NO"),
-    ("user1@user.es",md5("123456"),"Christian","Briones","corona verde","16-09-1990","NO","NO"),
-    ("user2@user.es",md5("123456"),"Pablo","Illescas","corona verde","16-09-1990","NO","NO"),
-    ("user3@user.es",md5("123456"),"Daniel","Alvaro","corona verde","16-09-1990","NO","NO"),
-    ("user4@user.es",md5("123456"),"Adrian","Compi","corona verde","16-09-1990","NO","NO"),
-    ("user5@user.es",md5("123456"),"Maria","Pinar","corona verde","16-09-1990","NO","NO"),
-    ("user6@user.es",md5("123456"),"Alvaro","Aparicio8","corona verde","16-09-1990","NO","NO");
+    ("admin1@admin.es",md5("123456"),"Diego","Leiva","corona verde","1990/09/16","SI","SI"),
+    ("admin2@admin.es",md5("123456"),"Daniel","Hernandez","corona verde","1990/09/16","SI","NO"),
+    ("admin3@admin.es",md5("123456"),"Oscar","Collado","corona verde","1990/09/16","SI","NO"),
+    ("user1@user.es",md5("123456"),"Christian","Briones","corona verde","1990/09/16","NO","NO"),
+    ("user2@user.es",md5("123456"),"Pablo","Illescas","corona verde","1990/09/16","NO","NO"),
+    ("user3@user.es",md5("123456"),"Daniel","Alvaro","corona verde","1990/09/16","NO","NO"),
+    ("user4@user.es",md5("123456"),"Adrian","Compi","corona verde","1990/09/16","NO","NO"),
+    ("user5@user.es",md5("123456"),"Maria","Pinar","corona verde","1990/09/16","NO","NO"),
+    ("user6@user.es",md5("123456"),"Alvaro","Aparicio8","corona verde","1990/09/16","NO","NO");
 
 create table PRODUCTO (
     id int PRIMARY KEY AUTO_INCREMENT,
     nombre varchar(30) NOT NULL UNIQUE,
     descripcion text(1000) NOT NULL,
-    precio decimal(5,2) NOT NULL,
+    precio decimal(7,2) NOT NULL,
     unidadesDisponibles int NOT NULL,
     imagen varchar(40) NOT NULL
 ) ;
@@ -74,13 +74,21 @@ CREATE TABLE CARRITO_USUARIO (
 );
 
 
-CREATE TABLE venta (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE VENTA (
+    id VARCHAR(15)  PRIMARY KEY,
     xUsuario int not null,
-    precioTotal decimal(5,2) not null,
+    precioTotal decimal(7,2) not null,
     direccionEnvio  varchar(150) NOT NULL,
     fecha varchar(10) ,
-    FOREIGN KEY (xUsuario) REFERENCES USUARIO(id),
+    FOREIGN KEY (xUsuario) REFERENCES USUARIO(id)
 );
 
-create TABLE VENTA_Art
+create TABLE VENTA_ARTICULO(
+    xVenta  VARCHAR(15) not null,
+    xProducto INT not null,
+    cantidad int not null,
+    precio decimal(7,2),
+    FOREIGN KEY (xVenta) REFERENCES VENTA(id),
+    FOREIGN KEY (xProducto) REFERENCES PRODUCTO(id)
+    
+);
