@@ -1,21 +1,11 @@
 <?php
 include "./bbdd/conexion.php";
+include "./bbdd/peticiones.php";
 $producto=[];
     if(isset($_GET["id"])){
         $id=$_GET["id"];
         $con = getConexion();
-        try{
-            $query ="select * from producto where id = ?";
-        $rs = $con->prepare($query);
-        $rs -> execute([$id]);
-        $res= $rs->fetchAll(PDO::FETCH_ASSOC);
-        $producto=$res[0];
-            
-        }catch(PDOException $e){
-            echo $e->getMessage();
-        }
-        
-
+        $producto=dameDatosProducto($con,$id);
     }else{
         header("location: aplicacion.php");
         exit;
@@ -47,6 +37,7 @@ $producto=[];
 </script>
 <body>
     
+    
 <pre>
     <?php print_r($producto);?>
 </pre>
@@ -63,13 +54,15 @@ este es el producto:
     echo "<p>imagen: <img height='150px' src='./public/img/".$producto['imagen']."'></p>";
     echo "<p>Unidades disponibles: ".$producto['unidadesDisponibles']."</p>";
 
+    if($producto['unidadesDisponibles']>1){
 ?>
 
 <form action="insertaCarrito.php" method="POST">
     <input type="hidden" name="idProducto" value="<?php echo $producto['id'] ?>">
     cantidad: <input type="number" name="cantidad" min="1" max="<?php echo $producto['unidadesDisponibles']?>" id=""><br>
     precio: <span></span>  <br>
-    <input type="submit" value="Al carrito" name="añadeCarrito">
+    <input type="submit" value="Al carrito" name="insertaACarrito">
 </form>
+<?php } ?>
 </body>
 </html>

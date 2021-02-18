@@ -94,6 +94,7 @@ if (isset($_POST['enviar'])) {
     
 
         include "./bbdd/conexion.php";
+
         $pass1=md5($pass1);
         try{
             $con = getConexion();       
@@ -140,6 +141,8 @@ if (isset($_POST['enviar'])) {
 </head>
 
 <body>
+
+<?php include "./includes/menu.php" ?>
 
     <h1>registro</h1>
 

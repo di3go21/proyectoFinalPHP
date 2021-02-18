@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS tiendaGutiarras2;
-USE tiendaGutiarras2;
+CREATE DATABASE IF NOT EXISTS tiendaguitarras2;
+USE tiendaguitarras2;
 /* */
 create table USUARIO (
     id int PRIMARY KEY AUTO_INCREMENT,
@@ -8,10 +8,22 @@ create table USUARIO (
     nombre varchar(30) NOT NULL,
     apellidos varchar(30) NOT NULL,
     direccion varchar(150) NOT NULL,
-    avatar varchar(150) NOT NULL,
-    fechaRegistro varchar(10) NOT NULL
+    fechaRegistro varchar(10) NOT NULL,
+    esAdmin varchar(2) default 'NO',
+    puedeRealizarInformes varchar(2) default "NO"
 
 ) ;
+insert into USUARIO (email,password,nombre,apellidos,direccion,fechaRegistro,esAdmin,puedeRealizarInformes) values 
+    ("admin1@admin.es",md5("123456"),"Diego","Leiva","corona verde","16-09-1990","SI","SI"),
+    ("admin2@admin.es",md5("123456"),"Daniel","Hernandez","corona verde","16-09-1990","SI","NO"),
+    ("admin3@admin.es",md5("123456"),"Oscar","Collado","corona verde","16-09-1990","SI","NO"),
+    ("user1@user.es",md5("123456"),"Christian","Briones","corona verde","16-09-1990","NO","NO"),
+    ("user2@user.es",md5("123456"),"Pablo","Illescas","corona verde","16-09-1990","NO","NO"),
+    ("user3@user.es",md5("123456"),"Daniel","Alvaro","corona verde","16-09-1990","NO","NO"),
+    ("user4@user.es",md5("123456"),"Adrian","Compi","corona verde","16-09-1990","NO","NO"),
+    ("user5@user.es",md5("123456"),"Maria","Pinar","corona verde","16-09-1990","NO","NO"),
+    ("user6@user.es",md5("123456"),"Alvaro","Aparicio8","corona verde","16-09-1990","NO","NO");
+
 create table PRODUCTO (
     id int PRIMARY KEY AUTO_INCREMENT,
     nombre varchar(30) NOT NULL UNIQUE,
@@ -62,3 +74,13 @@ CREATE TABLE CARRITO_USUARIO (
 );
 
 
+CREATE TABLE venta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    xUsuario int not null,
+    precioTotal decimal(5,2) not null,
+    direccionEnvio  varchar(150) NOT NULL,
+    fecha varchar(10) ,
+    FOREIGN KEY (xUsuario) REFERENCES USUARIO(id),
+);
+
+create TABLE VENTA_Art

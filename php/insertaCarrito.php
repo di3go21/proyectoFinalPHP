@@ -6,7 +6,13 @@ include "./bbdd/peticiones.php";
  echo "<pre>";
  print_r($_POST);
 // print_r($_SESSION);
+if(!isset($_POST['insertaACarrito'])){
+    header("location: aplicacion.php");
+    exit;
+}
 
+
+//validar y recoger bien 
 
 $con = getConexion();
 
@@ -25,8 +31,11 @@ $con = getConexion();
     print_r($productosCarrito);
 
 
+    header("location: carrito.php");
 ?>
 
 <p>carrito actualizado</p>
+
+<?php include "./includes/menu.php" ?>
 
 

@@ -10,9 +10,46 @@ function dameProductosDisponibles($con)
         $rs = $st->fetchAll(PDO::FETCH_ASSOC);
         return $rs;
     } catch (Exception $e) {
-        $e->getMessage();
+        echo $e->getMessage();
     }
     return [];
+}
+
+function damePaginados($con,$num,$productosPorPagina){
+    $query="select * from producto where unidadesDisponibles>0 LIMIT ".$num." , $productosPorPagina";
+    try {
+        $st = $con->query($query);
+        $st->execute();
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+
+}
+function dameProductosOrdenados($con, $campo, $orden, $categoria=""){
+    $query = "SELECT DISTINCT  P.*
+            from producto P, producto_categoria P_C , categoria C
+            where
+            C.id = P_C.xCategoria and
+            P.id = P_C.xProducto and
+            P.unidadesDisponibles>0 and C.nombre like ? ";
+
+    $query.="ORDER BY P.$campo $orden";
+
+    try {
+        $st = $con->prepare($query);
+        $st->execute(["%".$categoria."%"]);
+        
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+    
+
 }
 
 
@@ -82,6 +119,43 @@ function insertaProductoACarritoDeUsuario($con,$carrito,$idUsuario,$idProducto,$
     }
     return false;
 }
-function dameDatosProducto($id){
+function dameDatosProducto($con,$id){
+    try{
+        $query ="select * from producto where id = ?";
+    $rs = $con->prepare($query);
+    $rs -> execute([$id]);
+    $res= $rs->fetchAll(PDO::FETCH_ASSOC);
+    return $res[0];
+        
+    }catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
+
+}
+function damePrecioDeProducto($con,$id){
+    try{
+        $query ="select precio from producto where id = ?";
+            $st = $con->prepare($query);
+            $st->execute([$id]);
+            $rs = $st->fetch(PDO::FETCH_COLUMN);
+            return $rs;
+        }catch(PDOException $e){
+        echo $e->getMessage();
+    }
+}
+
+function eliminaDeCarrito(PDO $con,$idProd,$idUsuario){
+
+    $query="DELETE FROM carrito_usuario where xUsuario=? and xProducto=? ";
+
+    try{
+            $st = $con->prepare($query);
+            return ($st->execute([$idUsuario,$idProd]));
+            
+        }catch(PDOException $e){
+        echo $e->getMessage();
+    }
+
 
 }

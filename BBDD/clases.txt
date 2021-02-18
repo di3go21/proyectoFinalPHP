@@ -7,20 +7,14 @@ USUARIO
     apellidos
     direccion
     fechaRegistro
+    esAdmin
+    puedeRealizarInformes
 
 CARRITO_USUARIO
     xIdUsuario
     xIdProducto
     Cantidad
 
-FAVORITOS
-    xIdUsuario
-    xIdProducto
-
-ADMIN
-    xUsuario
-    dni
-    fechaUltimoLog
 
 LOGADMINS -- file - usuario - fecha - equipo 
 

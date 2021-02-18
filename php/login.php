@@ -32,11 +32,12 @@ if(isset($_POST['enviar'])){
             if($rs==1){
 
                 //LOGUEAR Y REDIRIGIR A APPLICACION
-                
-
-                session_start();
                 $_SESSION["autenticado"]="SI";
                 $_SESSION["email_usuario_autenticado"]=$usuario;
+
+                
+
+
                 header("location:aplicacion.php");
                 exit;
             }else{
