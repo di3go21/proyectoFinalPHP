@@ -14,6 +14,35 @@ function dameProductosDisponibles($con)
     }
     return [];
 }
+function logIn($con,$usuario,$pass){
+    try{
+        
+        $st=$con->prepare("select count(*)  from usuario where email=? and password=?");
+        $st->execute([$usuario,md5($pass)]);
+        $rs = $st->fetch(PDO::FETCH_COLUMN);//devuelve el numero del count consultado
+        return $rs;
+
+    }catch(PDOException $e){
+        $error=$e->getMessage();          
+    }
+}
+
+
+function actualizaVariablesEnSession($con,$email){
+    try {
+        $con = getConexion();
+        $st = $con->prepare("select id,email,nombre,apellidos,direccion,fechaRegistro,esAdmin,puedeRealizarInformes  from usuario where email=?");
+        $st->execute([$email]);
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC); //devuelve el numero del count consultado
+       
+            foreach ($rs[0] as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+    } catch (PDOException $e) {
+       echo $e->getMessage();
+    }
+
+}
 
 function damePaginados($con, $num, $productosPorPagina)
 {
@@ -196,12 +225,16 @@ function damePrecioTotalCarrito($con, $carrito)
 
 
 function registraVentaArticulo($con,$idVenta,$carrito){
-    $query="INSERT INTO venta_articulo values ( ? , ? ,? ,? )";
+    $query1="INSERT INTO venta_articulo values ( ? , ? ,? ,? )";
+    $query2="UPDATE producto SET unidadesDisponibles =unidadesDisponibles- ? WHERE id = ?";
     foreach ($carrito as $key => $articulo) {
         $precio=damePrecioDeProducto($con,$articulo['id']);
         try {
-            $st = $con->prepare($query);
+            $st = $con->prepare($query1);
             $st->execute([$idVenta,$articulo['id'],$articulo['cantidad'],$precio]);
+            
+            $st = $con->prepare($query2);
+            $st->execute([$articulo['cantidad'],$articulo['id']]);
             
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -238,14 +271,57 @@ function dameVenta($con,$idVenta){
 function dameArticulosVenta($con,$idVenta){
     $articulos=[];
     try {
-        $query = "select producto, cantidad, precio from venta_articulo where xVenta = ?";
+        $query = "select P.nombre , VA.xProducto, VA.cantidad, VA.precio
+        from venta_articulo VA, producto P        
+        where P.id = VA.xProducto        
+        and xVenta = ?";
         $rs = $con->prepare($query);
         $rs->execute([$idVenta]);
-        $venta = $rs->fetchAll(PDO::FETCH_ASSOC);
-        return $venta;
+        $articulos = $rs->fetchAll(PDO::FETCH_ASSOC);
+        return $articulos;
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
 }
+
+function dameVentas(PDO $con,$idUser){
+
+    $ventas=[];
+    try {
+        $query = "select id from venta where xUsuario = ? ";
+        $rs = $con->prepare($query);
+        $rs->execute([$idUser]);
+        $idsVentas = $rs->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($idsVentas as $key => $value) {
+            $venta=dameVenta($con,$value['id']);
+            $articulosVenta=dameArticulosVenta($con,$value['id']);
+            $venta['articulos']=$articulosVenta;
+            array_push($ventas,$venta);
+
+        }
+        return $ventas;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }    
+
+}
+
+function actualizaDatosUsuario($con,$email,$pass1,$nombre,$apellidos,$direccion){
+    $query="UPDATE  usuario
+     set password = ? , nombre= ?, apellidos = ? , direccion = ? 
+     where email=?";
+    
+    try {
+        $st = $con->prepare($query);
+        $rs=$st->execute([md5($pass1),$nombre,$apellidos,$direccion,$email]);
+       return $rs;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }  
+}
+
+
 
 ?>

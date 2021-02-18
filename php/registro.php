@@ -105,7 +105,7 @@ if (isset($_POST['enviar'])) {
             $st="";
             $con="";
 
-            header("location: ./login.php");
+            header("location: ./login.php?registrado=$email");
             exit;
         }catch(PDOException $e){
             $error=$e->getMessage();

@@ -3,11 +3,15 @@ include "./autenticacion/controlLogin.php";
 include "./includes/sanear.php";
 
 $usuario = "";
-$error = "";
+$mensaje=$error = "";
 
 
 if (isset($_GET['usuario'])){
     $usuario=sanear('usuario');
+}
+if (isset($_GET['registrado'])){
+    $usuario=sanear('registrado');
+    $mensaje="¡Enhorabuena ya estás registrado! ingresa tu contraseña para entrar!";
 }
 
 if(isset($_POST['enviar'])){
@@ -24,11 +28,11 @@ if(isset($_POST['enviar'])){
     }else{
 
         include "./bbdd/conexion.php";
-        try{
+        include "./bbdd/peticiones.php";
+
             $con = getConexion();
-            $st=$con->prepare("select count(*)  from usuario where email=? and password=?");
-            $st->execute([$usuario,md5($pass)]);
-            $rs = $st->fetch(PDO::FETCH_COLUMN);//devuelve el numero del count consultado
+            
+            $rs = logIn($con,$usuario,$pass);
             if($rs==1){
 
                 //LOGUEAR Y REDIRIGIR A APPLICACION
@@ -44,10 +48,7 @@ if(isset($_POST['enviar'])){
                 $error="Credenciales incorrectas";
             }
 
-        }catch(PDOException $e){
-            $error=$e->getMessage();          
-        }
-
+        
 
         
 
@@ -73,8 +74,10 @@ if(isset($_POST['enviar'])){
 <body>
 Logueate
 
+<p><?=$mensaje?></p>
 
 <form action="" method="POST"><br><br>
+
 
 <label>Email: <input type="text" name="email" id="" value= "<?php echo $usuario ?>" ></label><br><br>
 <label>Pass: <input type="text" name="pass" id=""></label>
