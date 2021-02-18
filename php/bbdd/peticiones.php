@@ -14,6 +14,50 @@ function dameProductosDisponibles($con)
     }
     return [];
 }
+
+
+function dameProductosConQuery($con,$cadena){
+
+    $query = 'SELECT * from producto where unidadesDisponibles>0 and ( nombre like ? or descripcion like ? )';
+    
+    
+    try {
+        $st = $con->prepare($query);
+        $st->execute(["%$cadena%","%$cadena%"]);
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+}
+
+
+function dameProductosDeCategoria($con,$cat){
+    $query = 'SELECT P.*
+     from producto P , categoria C , producto_categoria PC
+     where unidadesDisponibles>0
+      and P.id = PC.xProducto
+      and PC.xCategoria = C.id
+      and C.nombre = ? ';
+    
+    try {
+        $st = $con->prepare($query);
+        $st->execute([$cat]);
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+}
+
+
+
+
+
+
+
 function logIn($con,$usuario,$pass){
     try{
         
@@ -322,6 +366,19 @@ function actualizaDatosUsuario($con,$email,$pass1,$nombre,$apellidos,$direccion)
     }  
 }
 
+function dameCategorias(){ 
+    $categ=[];
+    $con=getConexion();
+    try {
+        $query = "select nombre from categoria";
+        $rs = $con->query($query);
+        $categ = $rs->fetchAll(PDO::FETCH_COLUMN);
+       
+        return $categ;
 
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }    
+}
 
 ?>

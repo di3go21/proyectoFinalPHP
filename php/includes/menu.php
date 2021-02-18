@@ -1,6 +1,7 @@
 
 <ul>
     <li><a href="/php/aplicacion.php">Inicio</a></li>
+    <li><a href="/php/productos.php">Productos</a></li>
     <?php 
         if(isset($_SESSION) && $_SESSION['esAdmin']=="SI" ){
             echo "<li><a href='/php/areaAdmin.php'>Area de administracion</a></li>";
