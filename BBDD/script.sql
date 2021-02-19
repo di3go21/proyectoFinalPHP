@@ -13,6 +13,29 @@ create table USUARIO (
     puedeRealizarInformes varchar(2) default "NO"
 
 ) ;
+
+
+create table baja (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    email varchar(30) NOT NULL,
+    nombre varchar(30) NOT NULL,
+    apellidos varchar(30) NOT NULL,
+    direccion varchar(150) NOT NULL,
+    fechaRegistro varchar(10) NOT NULL,
+    fechaBaja varchar(10) NOT NULL
+
+) ;
+
+create table alta (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    email varchar(30) NOT NULL ,
+    nombre varchar(30) NOT NULL,
+    apellidos varchar(30) NOT NULL,
+    fechaRegistro varchar(10) NOT NULL
+
+) ;
+
+
 insert into USUARIO (email,password,nombre,apellidos,direccion,fechaRegistro,esAdmin,puedeRealizarInformes) values 
     ("admin1@admin.es",md5("123456"),"Diego","Leiva","corona verde","1990/09/16","SI","SI"),
     ("admin2@admin.es",md5("123456"),"Daniel","Hernandez","corona verde","1990/09/16","SI","NO"),
@@ -49,9 +72,9 @@ insert into CATEGORIA (nombre) values ("Guitarras"),("Bajos"),("instrumentos ac√
 
 create table PRODUCTO_CATEGORIA (
     xProducto int NOT NULL,
-    xCategoria int not null,
+    xCategoria int not null/*,
     FOREIGN KEY (xProducto) REFERENCES PRODUCTO(id),
-    FOREIGN KEY (xCategoria) REFERENCES CATEGORIA(id)
+    FOREIGN KEY (xCategoria) REFERENCES CATEGORIA(id)*/
 );
  insert into PRODUCTO_CATEGORIA (xProducto,xCategoria) values
     (1,1),
@@ -76,19 +99,21 @@ CREATE TABLE CARRITO_USUARIO (
 
 CREATE TABLE VENTA (
     id VARCHAR(15)  PRIMARY KEY,
-    xUsuario int not null,
+    email varchar(30) not null,
     precioTotal decimal(7,2) not null,
     direccionEnvio  varchar(150) NOT NULL,
-    fecha varchar(10) ,
-    FOREIGN KEY (xUsuario) REFERENCES USUARIO(id)
+    fecha varchar(10)
+    /* ,
+    FOREIGN KEY (xUsuario) REFERENCES USUARIO(id)*/
 );
 
 create TABLE VENTA_ARTICULO(
     xVenta  VARCHAR(15) not null,
     xProducto INT not null,
     cantidad int not null,
-    precio decimal(7,2),
+    precio decimal(7,2)/*,
+    *
     FOREIGN KEY (xVenta) REFERENCES VENTA(id),
-    FOREIGN KEY (xProducto) REFERENCES PRODUCTO(id)
-    
+    FOREIGN KEY (xProducto) REFERENCES PRODUCTO(id)/
+    */
 );

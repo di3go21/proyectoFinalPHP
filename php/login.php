@@ -61,19 +61,21 @@ if(isset($_POST['enviar'])){
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=ç, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-Logueate
 
+<?php include "./includes/menu.php" ?>
+
+
+
+<h1>login</h1>
 <p><?=$mensaje?></p>
 
 <form action="" method="POST"><br><br>
@@ -82,7 +84,7 @@ Logueate
 <label>Email: <input type="text" name="email" id="" value= "<?php echo $usuario ?>" ></label><br><br>
 <label>Pass: <input type="text" name="pass" id=""></label>
 <p style="color:red"><?php echo $error ?> </p>
-<p><a href="recuperarPass.php">olvidé mi contraseña</a></p>
+<!-- <p><a href="recuperarPass.php">olvidé mi contraseña</a></p> -->
 <input type="submit" value="Entrar" name="enviar">
 </form>
     

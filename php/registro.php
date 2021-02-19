@@ -98,13 +98,16 @@ if (isset($_POST['enviar'])) {
         $pass1=md5($pass1);
         try{
             $con = getConexion();       
-            $st=$con->prepare("insert into USUARIO
+            $st=$con->prepare("INSERT into USUARIO
                  (nombre,apellidos,password,direccion,email,fechaRegistro) values 
                 (?,?,?,?,?,?)");
             $st->execute([$nombre,$apellidos,$pass1,$direccion,$email,$fechaRegistro]);
+            $rs=$con->prepare("INSERT into alta
+                    (email,nombre,apellidos,fechaRegistro) values 
+                (?,?,?,?) ");
+            $rs->execute([$email,$nombre,$apellidos,$fechaRegistro]);
             $st="";
             $con="";
-
             header("location: ./login.php?registrado=$email");
             exit;
         }catch(PDOException $e){

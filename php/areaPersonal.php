@@ -14,7 +14,7 @@ include "./includes/sanear.php";
 
 
 $con = getConexion();
-$ventas = dameVentas($con, $_SESSION['id']);
+$ventas = dameVentas($con, $_SESSION['email']);
 $nombreErr = $error= $apellidosErr =$mensaje  = $direccionErr = $passErr = "";
 
 // echo "<pre>";  print_r($_SESSION);
@@ -112,6 +112,14 @@ echo "alsd";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script>
+        onload=()=>{
+            $('#eliminarCuenta').click(()=>{
+                window.location.href="eliminarCuenta.php";
+            })
+        }
+    </script>
     <style>
         .error {
             color: red;
@@ -154,8 +162,15 @@ echo "alsd";
 
 
     </form>
+    <?php if($_SESSION['esAdmin']=="NO") echo  "<button id='eliminarCuenta'> Eliminar Cuenta</button>"  ?>
 
 
+<?php
+
+        if(!empty($ventas)){
+            echo "<pre>"; print_r($ventas);
+        }
+         ?>
 
 </body>
 

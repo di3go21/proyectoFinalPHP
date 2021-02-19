@@ -18,7 +18,7 @@ print_r($carrito);
 
 //crear venta 
 $idVenta = time()."-".$_SESSION['id'];
-$venta=realizaVenta($con,$idVenta,$_SESSION['id'],$carrito);
+$venta=realizaVenta($con,$idVenta,$_SESSION['id'],$carrito,$_SESSION['email']);
 if($venta){
     registraVentaArticulo($con,$idVenta,$carrito);
     vaciarCarrito($con,$_SESSION['id']);
@@ -26,8 +26,8 @@ if($venta){
 else{
     $error="No se ha podido procesar la venta. Por favor inténtelo de nuevo.";
 }
-$arrayVenta[]=dameVenta($con,$idVenta);
-$arrayVenta[]=dameArticulosVenta($con,$idVenta);
+$arrayVenta["datos"]=dameVenta($con,$idVenta);
+$arrayVenta["articulos"]=dameArticulosVenta($con,$idVenta);
 
 echo "<pre>"; print_r($arrayVenta);
 

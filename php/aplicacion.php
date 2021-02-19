@@ -1,13 +1,14 @@
 <?php
-include "./autenticacion/controlPaginasPrivadas.php";
+//include "./autenticacion/controlPaginasPrivadas.php";
 include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 include "./includes/sanear.php";
-//session_start();
-$email = $_SESSION["email_usuario_autenticado"];
+session_start();
+$email = isset($_SESSION["email_usuario_autenticado"])?$_SESSION["email_usuario_autenticado"]:"";
 $con = getConexion();
-actualizaVariablesEnSession($con, $email);
-
+if($email!=""){
+    actualizaVariablesEnSession($con, $email);
+}
 $categorias = dameCategorias();
 
 $productos = [];

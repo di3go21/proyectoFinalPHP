@@ -1,8 +1,9 @@
 <?php
-include "./autenticacion/controlPaginasPrivadas.php";
+//include "./autenticacion/controlPaginasPrivadas.php";
 include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 include "./includes/sanear.php";
+session_start();
 $con = getConexion();
 
 $categorias = dameCategorias();
@@ -17,7 +18,6 @@ if(isset($_GET['query']) && $_GET['query']!=""){
 
 if(isset($_GET['categoria']) && in_array($_GET['categoria'],$categorias)){
     $categoria=sanear("categoria");
-    echo 12312;
     $productos= dameProductosDeCategoria($con,$categoria);
 }
 

@@ -15,6 +15,22 @@ CARRITO_USUARIO
     xIdProducto
     Cantidad
 
+ALTAS
+    id 
+    email 
+    nombre 
+    apellidos 
+    fechaRegistro 
+
+BAJAS
+    id
+    email
+    nombre
+    apellidos
+    direccion
+    fechaRegistro
+    fechaBaja
+
 
 LOGADMINS -- file - usuario - fecha - equipo 
 

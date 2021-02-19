@@ -229,7 +229,7 @@ function eliminaDeCarrito(PDO $con, $idProd, $idUsuario)
     }
 }
 
-function realizaVenta($con,$idVenta, $idUsuario, $carrito)
+function realizaVenta($con,$idVenta, $idUsuario, $carrito,$email)
 {
     $totalPrecioCarrito = damePrecioTotalCarrito($con, $carrito);
     
@@ -238,7 +238,7 @@ function realizaVenta($con,$idVenta, $idUsuario, $carrito)
     $fecha = date("Y/m/d");
     try {
         $st = $con->prepare($query);
-        return ($st->execute([$idVenta, $idUsuario, $totalPrecioCarrito, $direccion, $fecha]));
+        return ($st->execute([$idVenta, $email, $totalPrecioCarrito, $direccion, $fecha]));
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -328,13 +328,13 @@ function dameArticulosVenta($con,$idVenta){
     }
 }
 
-function dameVentas(PDO $con,$idUser){
+function dameVentas(PDO $con,$email){
 
     $ventas=[];
     try {
-        $query = "select id from venta where xUsuario = ? ";
+        $query = "select id from venta where email = ? ";
         $rs = $con->prepare($query);
-        $rs->execute([$idUser]);
+        $rs->execute([$email]);
         $idsVentas = $rs->fetchAll(PDO::FETCH_ASSOC);
         foreach ($idsVentas as $key => $value) {
             $venta=dameVenta($con,$value['id']);
@@ -366,6 +366,8 @@ function actualizaDatosUsuario($con,$email,$pass1,$nombre,$apellidos,$direccion)
     }  
 }
 
+
+
 function dameCategorias(){ 
     $categ=[];
     $con=getConexion();
@@ -379,6 +381,51 @@ function dameCategorias(){
     } catch (PDOException $e) {
         echo $e->getMessage();
     }    
+}
+
+function dameUsuario(PDO $con,$email){ 
+    $usu=[];
+    try {
+        $query = "select * from usuario where email=?";
+        $rs = $con->prepare($query);
+        $rs->execute([$email]);
+        $usu = $rs->fetch(PDO::FETCH_ASSOC);
+       
+        return $usu;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }    
+}
+
+function insertaBaja(PDO $con,$email){
+    $query="INSERT INTO baja (email,nombre,apellidos,direccion,fechaRegistro,fechaBaja)
+     values (?,?,?,?,?,?)";
+     $usuario=dameUsuario($con,$email);
+       try {
+        $st = $con->prepare($query);
+        $rs=$st->execute([$email,$usuario['nombre'],$usuario['apellidos'],
+            $usuario['direccion'],$usuario['fechaRegistro'],date("Y/m/d")]);
+        return $rs;
+        
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+
+}
+
+function borraUsuario($con,$email){
+
+    $query="DELETE FROM usuario where email=?";
+    $usuario=dameUsuario($con,$email);
+    try {
+        $st = $con->prepare($query);
+        $rs=$st->execute([$email]);
+        return $rs;
+        
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
 }
 
 ?>
