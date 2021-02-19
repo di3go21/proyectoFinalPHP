@@ -21,6 +21,7 @@ ALTAS
     nombre 
     apellidos 
     fechaRegistro 
+    hora
 
 BAJAS
     id
@@ -30,6 +31,7 @@ BAJAS
     direccion
     fechaRegistro
     fechaBaja
+    hora
 
 
 LOGADMINS -- file - usuario - fecha - equipo 

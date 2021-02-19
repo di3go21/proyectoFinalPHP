@@ -397,15 +397,27 @@ function dameUsuario(PDO $con,$email){
         echo $e->getMessage();
     }    
 }
+function dameCampoUsuario($con,$campo,$id){
+    $usu=[];
+    try {
+        $query = "select $campo from usuario where id=?";
+        $rs = $con->prepare($query);
+        $rs->execute([$id]);
+        $usu = $rs->fetch(PDO::FETCH_COLUMN);       
+        return $usu;
 
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    } 
+}
 function insertaBaja(PDO $con,$email){
-    $query="INSERT INTO baja (email,nombre,apellidos,direccion,fechaRegistro,fechaBaja)
-     values (?,?,?,?,?,?)";
+    $query="INSERT INTO baja (email,nombre,apellidos,direccion,fechaRegistro,fechaBaja,hora)
+     values (?,?,?,?,?,?,?)";
      $usuario=dameUsuario($con,$email);
        try {
         $st = $con->prepare($query);
         $rs=$st->execute([$email,$usuario['nombre'],$usuario['apellidos'],
-            $usuario['direccion'],$usuario['fechaRegistro'],date("Y/m/d")]);
+            $usuario['direccion'],$usuario['fechaRegistro'],date("Y/m/d"),date("H:i:s")]);
         return $rs;
         
     } catch (PDOException $e) {
@@ -417,7 +429,6 @@ function insertaBaja(PDO $con,$email){
 function borraUsuario($con,$email){
 
     $query="DELETE FROM usuario where email=?";
-    $usuario=dameUsuario($con,$email);
     try {
         $st = $con->prepare($query);
         $rs=$st->execute([$email]);
@@ -426,6 +437,20 @@ function borraUsuario($con,$email){
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
+}
+
+function dameUsuariosParaAdministrar(PDO $con){
+    $query = "select id,email,nombre,apellidos,direccion,fechaRegistro from usuario where esAdmin='NO'";
+    $rs=[];
+    try {
+        $st = $con->query($query);
+        $st->execute();
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
 }
 
 ?>

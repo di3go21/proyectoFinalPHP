@@ -29,11 +29,11 @@ $con=getConexion();
 
 
 <ul>
-<li><a href="admusuarios.php"></a> gestionar usuarios</li>
-<li><a href="admproductos.php"></a> gestionar productos</li>
-<li><a href="admcategorias.php"></a> gestionar categorias</li>
+<li><a href="admusuarios.php">gestionar usuarios</a> </li>
+<li><a href="admproductos.php">gestionar productos</a> </li>
+<li><a href="admcategorias.php">gestionar categorias</a> </li>
 <?php if($_SESSION['puedeRealizarInformes']=="SI")
-    echo "<li><a href='adminformes.php'></a> gestionar categorias</li>" ;
+    echo "<li><a href='adminformes.php'>Ver Informes</a> </li>" ;
 ?>
 </ul>
     

@@ -90,7 +90,6 @@ if (isset($_POST['enviar'])) {
     }
     if ($todosLosCamposSonValidos) {
         
-echo "alsd";
         if (actualizaDatosUsuario($con,$_SESSION['email'],$pass1,$nombre,$apellidos,$direccion)){
             header("location: datosActualizados.php?ok=si");
             exit;

@@ -103,9 +103,9 @@ if (isset($_POST['enviar'])) {
                 (?,?,?,?,?,?)");
             $st->execute([$nombre,$apellidos,$pass1,$direccion,$email,$fechaRegistro]);
             $rs=$con->prepare("INSERT into alta
-                    (email,nombre,apellidos,fechaRegistro) values 
-                (?,?,?,?) ");
-            $rs->execute([$email,$nombre,$apellidos,$fechaRegistro]);
+                    (email,nombre,apellidos,fechaRegistro,hora) values 
+                (?,?,?,?,?) ");
+            $rs->execute([$email,$nombre,$apellidos,$fechaRegistro,date("H:i:s")]);
             $st="";
             $con="";
             header("location: ./login.php?registrado=$email");

@@ -22,7 +22,9 @@ create table baja (
     apellidos varchar(30) NOT NULL,
     direccion varchar(150) NOT NULL,
     fechaRegistro varchar(10) NOT NULL,
-    fechaBaja varchar(10) NOT NULL
+    fechaBaja varchar(10) NOT NULL,
+    hora varchar(8) NOT NULL
+    
 
 ) ;
 
@@ -31,7 +33,8 @@ create table alta (
     email varchar(30) NOT NULL ,
     nombre varchar(30) NOT NULL,
     apellidos varchar(30) NOT NULL,
-    fechaRegistro varchar(10) NOT NULL
+    fechaRegistro varchar(10) NOT NULL,
+    hora varchar(8) NOT NULL
 
 ) ;
 
