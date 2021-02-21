@@ -15,7 +15,6 @@ if(isset($_GET['query']) && $_GET['query']!=""){
     $productos= dameProductosConQuery($con,$cadena);
 }
 
-
 if(isset($_GET['categoria']) && in_array($_GET['categoria'],$categorias)){
     $categoria=sanear("categoria");
     $productos= dameProductosDeCategoria($con,$categoria);

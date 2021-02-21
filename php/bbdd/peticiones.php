@@ -52,7 +52,19 @@ function dameProductosDeCategoria($con,$cat){
     return [];
 }
 
+function dameTodosLosProductos($con){
+    $query = "select * from producto ";
 
+    try {
+        $st = $con->query($query);
+        $st->execute();
+        $rs = $st->fetchAll(PDO::FETCH_ASSOC);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+}
 
 
 
@@ -383,6 +395,22 @@ function dameCategorias(){
     }    
 }
 
+function dameIdCategoria(PDO $con,$cat){ 
+    $categ="";
+    try {
+        $query = "select id from categoria where nombre=?";
+        $rs = $con->prepare($query);
+        
+        $rs->execute([$cat]);
+        $categ = $rs->fetch(PDO::FETCH_COLUMN);
+       
+        return $categ;
+
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }    
+}
+
 function dameUsuario(PDO $con,$email){ 
     $usu=[];
     try {
@@ -453,4 +481,67 @@ function dameUsuariosParaAdministrar(PDO $con){
     return [];
 }
 
+function eliminarCategoria(PDO $con,$cat){
+    $idCate=dameIdCategoria($con,$cat);
+    $query1="DELETE FROM producto_categoria where xCategoria=?";    
+    $query2="DELETE FROM categoria where id=?";
+    try {
+        $st = $con->prepare($query1);
+        $rs1=$st->execute([$idCate]);
+        $st = $con->prepare($query2);
+        $rs2=$st->execute([$idCate]);
+        return $rs1 && $rs2;
+        
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+function actualizaCategoria($con,$id,$nuevoNombreCat){
+
+
+    $query="UPDATE  categoria
+    set nombre= ? 
+    where id=?";
+   
+   try {
+       $st = $con->prepare($query);
+       $rs=$st->execute([$nuevoNombreCat,$id]);
+      return $rs;
+
+   } catch (PDOException $e) {
+      echo  $e->getMessage();
+   }  
+
+   
+}
+
+function insertarNuevaCategoria($con,$nombre){
+    $query ="INSERT INTO categoria (nombre) values (?)";
+
+try {
+       $st = $con->prepare($query);
+       $rs=$st->execute([$nombre]);
+      return $rs;
+
+   } catch (PDOException $e) {
+        $e->getMessage();
+   }  
+}
+
+function dameCategoriasDeProducto($con,$idProducto){
+    $query = "SELECT  C.nombre,C.id 
+     from categoria C, producto_categoria PC
+      where     PC.xProducto=? ";
+    $rs=[];
+    try {
+        $st = $con->prepare($query);
+        $st->execute([$idProducto]);
+        $rs = $st->fetchAll(PDO::FETCH_COLUMN);
+        return $rs;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return [];
+}
 ?>
