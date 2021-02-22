@@ -630,6 +630,22 @@ function dameIdProducto($con, $nombreProducto)
         echo $e->getMessage();
     }
 }
+function dameNombreProducto($con, $id)
+{
+    $nombre = "";
+    try {
+        $query = "select nombre from producto where id=?";
+        $rs = $con->prepare($query);
+
+        $rs->execute([$id]);
+        $nombre = $rs->fetch(PDO::FETCH_COLUMN);
+
+        return $nombre;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
 
 
 function guardaCategorias(PDO $con, $nombre, $categorias)
