@@ -8,9 +8,12 @@ include "./includes/sanear.php";
 $con=getConexion();
 
 $productos=dameTodosLosProductos($con);
+$mensaje="";
 // echo "<pre>";
 // print_r($productos);
-
+if(isset($_GET['eliminar'])){
+    $mensaje="<h5>Se ha eliminado el producto adecuadamente</h5>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +25,14 @@ $productos=dameTodosLosProductos($con);
 </head>
 <body>
 
+<?php include "./includes/menu.php"; ?>
 <h1>Administracion productos</h1>
+<p>
+<a href="admnuevoproducto.php">Añade nuevo producto</a></p>
 
 <p>Lista De Productos</p>
 <?php
+echo $mensaje;
 if(empty($productos)){
     echo "<h5>No hay productos en la tienda.</h5>";
 }else{
@@ -53,8 +60,8 @@ if(empty($productos)){
         }
         echo "<td>$categorias</td>";
         echo "<td>
-        <a href='eliminarProducto.php'>Eliminar</a>
-        <a href='editarProducto.php'>Editar</a></td>";
+        <a href='admeliminarProducto.php?id=".$producto['id']."'>Eliminar</a>
+        <a href='admeditarProducto.php?id=".$producto['id']."'>Editar</a></td>";
 
     echo "</tr>";
     }

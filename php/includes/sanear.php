@@ -6,5 +6,4 @@ function sanear($campo){
     return $tmp;
 }
 
-
 ?>
