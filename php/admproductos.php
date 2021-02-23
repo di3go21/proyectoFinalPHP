@@ -34,7 +34,7 @@ if(isset($_GET['eliminar'])){
 
 <div class="container">
 <h1>Administracion productos</h1>
-<a class="btn btn-lg btn-success" href="admnuevoproducto.php">Añade nuevo producto</a><br><br>
+<a class="btn btn-lg btn-success" href="./admnuevoproducto.php">Añade nuevo producto</a><br><br>
 
 <h3 class="display-4">Lista De Productos</h3>
 <?php
@@ -73,8 +73,8 @@ if(empty($productos)){
         }
         echo "<td>$categorias</td>";
         echo "<td>
-        <a href='admeliminarProducto.php?id=".$producto['id']."'>Eliminar</a>
-        <a href='admeditarProducto.php?id=".$producto['id']."'>Editar</a></td>";
+        <a href='./admeliminarProducto.php?id=".$producto['id']."'>Eliminar</a>
+        <a href='./admeditarProducto.php?id=".$producto['id']."'>Editar</a></td>";
 
     echo "</tr>";
     }

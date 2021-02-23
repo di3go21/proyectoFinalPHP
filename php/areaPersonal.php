@@ -78,7 +78,7 @@ if (isset($_POST['enviar'])) {
     if ($todosLosCamposSonValidos) {
 
         if (actualizaDatosUsuario($con, $_SESSION['email'], $pass1, $nombre, $apellidos, $direccion)) {
-            header("location: datosActualizados.php?ok=si");
+            header("location: ./datosActualizados.php?ok=si");
             exit;
         } else {
 
@@ -100,7 +100,7 @@ if (isset($_POST['enviar'])) {
     <script>
         onload = () => {
             $('#eliminarCuenta').click(() => {
-                window.location.href = "eliminarCuenta.php";
+                window.location.href = "./eliminarCuenta.php";
             })
             $(".compras > li > ul").hide();
              $(".compras > li > span ").click((evento)=>{
@@ -126,7 +126,7 @@ if (isset($_POST['enviar'])) {
     <div class="container mt-5">
         <h1 class="text-center">Estos son tus datos, los puedes personalizar si deseas:</h1>
         <?php echo "<h3 class='text-danger'>$error</h3>"; ?>
-        <form action="areaPersonal.php" class="form mt-5" method="POST">
+        <form action="./areaPersonal.php" class="form mt-5" method="POST">
 
             <div class="row justify-content-center">
                 <div class="col-md-6">

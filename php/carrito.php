@@ -33,7 +33,7 @@ $precioTotal = 0;
         function avisaCompra(evento) {
             evento.preventDefault();
             alert("Para realizar la compra vuelve a pulsar en el link 'COMPRA TUS PRODUCTOS'");
-            $(evento.target).attr("href", "compra.php");
+            $(evento.target).attr("href", "./compra.php");
             $(evento.target).off();
 
         }
@@ -52,7 +52,7 @@ $precioTotal = 0;
         if (!empty($carrito)) {
         echo "<h3>Tu Carrito es:</h3>";
 
-        echo "<form method='POST' action='eliminaCarrito.php'>";
+        echo "<form method='POST' action='./eliminaCarrito.php'>";
         echo "<table class='table mb-5'>";
 
         echo "<tr>";

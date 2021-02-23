@@ -35,11 +35,11 @@ $con=getConexion();
 
 
 
-<a class="btn btn-outline-warning" href="admusuarios.php">gestionar usuarios</a> 
-<a class="btn btn-outline-success" href="admproductos.php">gestionar productos</a> 
-<a class="btn btn-outline-info" href="admcategorias.php">gestionar categorias</a>
+<a class="btn btn-outline-warning" href="./admusuarios.php">gestionar usuarios</a> 
+<a class="btn btn-outline-success" href="./admproductos.php">gestionar productos</a> 
+<a class="btn btn-outline-info" href="./admcategorias.php">gestionar categorias</a>
 <?php if($_SESSION['puedeRealizarInformes']=="SI")
-    echo "<a class='btn btn-outline-danger' href='adminformes.php'>Ver Informes</a>" ;
+    echo "<a class='btn btn-outline-danger' href='./adminformes.php'>Ver Informes</a>" ;
 ?>
     
 

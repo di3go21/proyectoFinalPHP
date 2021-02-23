@@ -4,7 +4,7 @@ include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 
 if(!isset($_POST['insertaACarrito'])){
-    header("location: aplicacion.php");
+    header("location: ./aplicacion.php");
     exit;
 }
 
@@ -22,6 +22,6 @@ $con = getConexion();
     $productosCarrito= getCarritoDeUsuario($con,$_SESSION['id']);
 
 
-    header("location: carrito.php");
+    header("location: ./carrito.php");
 ?>
 

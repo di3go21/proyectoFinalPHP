@@ -1,5 +1,4 @@
 <?php
-//include "./autenticacion/controlPaginasPrivadas.php";
 include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 include "./includes/sanear.php";
@@ -56,14 +55,14 @@ if (isset($_GET['orden']) && in_array($_GET['orden'], $orden)  && isset($_GET['t
     
     <h1>Bienvenido a la app</h1>
 
-        <p><a href="productos.php">Limpiar Filtros</a></p>
+        <p><a href="./productos.php">Limpiar Filtros</a></p>
         <p>Buscar
-        <form action="productos.php">
+        <form action="./productos.php">
             <input type="text" name="query" id=""> <input type="submit" value="buscar" name="buscar">
         </form>
         </p>
         <p>Categorías</p>
-        <form action="productos.php">
+        <form action="./productos.php">
             <label for="categoria">Elije categoría</label>
             <select name="categoria" id="categoria">
                 <option selected>Todos</option>
@@ -90,7 +89,7 @@ if (isset($_GET['orden']) && in_array($_GET['orden'], $orden)  && isset($_GET['t
             foreach ($productos[0] as $key => $value) {
                 if ($key != "id" && $key != "descripcion") {
                     if (in_array($key, $orden))
-                        echo "<th> <a href='productos.php?orden=$key&tipo=desc'><i class='bi bi-arrow-bar-up'></i></a> $key <a href='productos.php?orden=$key&tipo=asc'>
+                        echo "<th> <a href='./productos.php?orden=$key&tipo=desc'><i class='bi bi-arrow-bar-up'></i></a> $key <a href='./productos.php?orden=$key&tipo=asc'>
                         <i class='bi bi-arrow-bar-down'></i></a></th>";
                     else
                         echo "<th>$key</th>";
@@ -108,13 +107,13 @@ if (isset($_GET['orden']) && in_array($_GET['orden'], $orden)  && isset($_GET['t
                         if ($campo == "imagen")
                             echo "<img src='./public/img/$valor' height='120px'>";
                         elseif ($campo == "nombre")
-                            echo "<a href='producto.php?id=" . $producto['id'] . "'>$valor</a>";
+                            echo "<a href='./producto.php?id=" . $producto['id'] . "'>$valor</a>";
                         else
                             echo $valor;
                     }
                 }
 
-                echo "<form action='insertaCarrito.php' method='POST'> ";
+                echo "<form action='./insertaCarrito.php' method='POST'> ";
                 echo "<input type='hidden' name='cantidad' value='1'> ";
                 echo "<input type='hidden' name='idProducto' value='" . $producto['id'] . "'> ";
                 echo "<input type='submit' name='insertaACarrito' value='Añade al carrito'>";

@@ -18,7 +18,7 @@ if(isset($_POST['eliminaProductos'])){
     }
 }
 
- header("location: carrito.php");
+ header("location: ./carrito.php");
 
 ?>
 

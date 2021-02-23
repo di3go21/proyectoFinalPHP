@@ -21,7 +21,7 @@
             Su cuenta se ha eliminado, esperamos que vuelva pronto!
         </h2>
 
-        <a href="aplicacion.php" class="btn btn-lg btn-success">Ir a Inicio</a>
+        <a href="./aplicacion.php" class="btn btn-lg btn-success">Ir a Inicio</a>
 
     </div>
 

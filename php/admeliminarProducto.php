@@ -10,12 +10,12 @@ $error=[];
 $id=sanear('id');
 $producto=dameDatosProducto($con,$id);
 if(empty($producto)){
-    header("location: admproductos.php");
+    header("location: ./admproductos.php");
     exit;
 }
 if(isset($_GET['confirma']) && $_GET['confirma']=="si"){
     eliminarProducto($con,$id);
-    header("location: admproductos.php?eliminar=ok");
+    header("location: ./admproductos.php?eliminar=ok");
     exit;
 }
 
@@ -52,9 +52,9 @@ if(isset($_GET['confirma']) && $_GET['confirma']=="si"){
 
 </ul>
 
-<a class="btn btn-danger" href="admeliminarProducto.php?id=<?=$id ?>&confirma=si">Eliminar</a>
+<a class="btn btn-danger" href="./admeliminarProducto.php?id=<?=$id ?>&confirma=si">Eliminar</a>
 
-<a class="btn btn-primary" href="admproductos.php">Volver</a>
+<a class="btn btn-primary" href="./admproductos.php">Volver</a>
 
 
 

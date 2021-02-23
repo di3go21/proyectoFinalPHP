@@ -57,14 +57,14 @@ if(isset($_GET['eliminar']) && in_array($_GET['eliminar'],$todasLasCategorias)){
             foreach ($todasLasCategorias as $key => $value) {
                 echo "<tr>";
                 echo "<td>$value</td>";
-                echo "<td><a class='btn btn-danger' href='admcategorias.php?eliminar=$value'>Eliminar</a> <a class='btn btn-warning' href='editarcategoria.php?editar=$value'>Editar</a> </td>";
+                echo "<td><a class='btn btn-danger' href='./admcategorias.php?eliminar=$value'>Eliminar</a> <a class='btn btn-warning' href='editarcategoria.php?editar=$value'>Editar</a> </td>";
                 echo "<tr>";
             }
         }
         ?>
     </table>
 
-    <a class='btn btn-success' href="addcategoria.php">Insertar Nueva Categoría</a>
+    <a class='btn btn-success' href="./addcategoria.php">Insertar Nueva Categoría</a>
 
 
 

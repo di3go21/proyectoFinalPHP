@@ -12,14 +12,14 @@ $emailUsuario = dameCampoUsuario($con, "email", $id);
 $usuario = dameUsuario($con, $emailUsuario);
 
 if (empty($usuario)) {
-    header("location: admusuarios.php");
+    header("location: ./admusuarios.php");
     exit;
 }
 if (isset($_GET['confirmar']) && $_GET['confirmar'] == "si") {
     if (insertaBaja($con, $emailUsuario)) {
         vaciarCarrito($con, $emailUsuario);
         if (borraUsuario($con, $emailUsuario)) {
-            header("location: admusuarios.php");
+            header("location: ./admusuarios.php");
             exit;
         }
     }
@@ -53,9 +53,9 @@ if (isset($_GET['confirmar']) && $_GET['confirmar'] == "si") {
     }
     echo "</ul>";
 
-    echo "<a class='btn btn-danger btn-lg' href='admconfirmareliminar.php?eliminar=$id&confirmar=si'>SI</a>";
+    echo "<a class='btn btn-danger btn-lg' href='./admconfirmareliminar.php?eliminar=$id&confirmar=si'>SI</a>";
     ?>
-    <a  class='btn btn-secondary btn-lg' href="admusuarios.php">NO</a>
+    <a  class='btn btn-secondary btn-lg' href="./admusuarios.php">NO</a>
 
 
 

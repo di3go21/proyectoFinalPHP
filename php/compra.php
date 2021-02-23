@@ -9,7 +9,7 @@ $error = "";
 
 $carrito = getCarritoDeUsuario($con, $_SESSION['id']);
 if (empty($carrito)) {
-    header("location: carrito.php");
+    header("location: ./carrito.php");
     exit;
 }
 //crear venta 

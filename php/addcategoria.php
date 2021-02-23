@@ -12,7 +12,7 @@ if(isset($_POST['enviar'])){
     if($nombre!=""){
         $con=getConexion();
         if(insertarNuevaCategoria($con,$nombre)){
-            header("location: admcategorias.php");
+            header("location: ./admcategorias.php");
             exit;
         }else{
             $error="<p style='color:red'>Ya existe la categoría</p>";
@@ -45,7 +45,7 @@ if(isset($_POST['enviar'])){
 
     <h1>Añade una categoría</h1><br><br>
 
-    <form action="addcategoria.php" method="POST">
+    <form action="./addcategoria.php" method="POST">
         
         <p><label for="cat">Nombre Categoría: <input type="text" name="cat"  id="cat"></label></p>
         

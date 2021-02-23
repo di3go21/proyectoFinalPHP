@@ -42,7 +42,7 @@ if (isset($_POST['enviar'])) {
 
 
 
-            header("location:aplicacion.php");
+            header("location:./aplicacion.php");
             exit;
         } else {
             $error = "Credenciales incorrectas";

@@ -4,7 +4,7 @@ include "./autenticacion/controlPaginasPrivadas.php";
 include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 if(!isset($_GET['ok'])){
-    header('location: areaPersonal.php');
+    header('location: ./areaPersonal.php');
     exit;
 }
 $con=getConexion();
@@ -30,7 +30,7 @@ actualizaVariablesEnSession($con, $_SESSION["email_usuario_autenticado"]);
 <div class="container">
 <h2>Datos actualizados correctamente</h2>
 <br><br>
-<p><a class="btn btn-lg btn-success" href="areaPersonal.php">Volver al área Personal</a></p>
+<p><a class="btn btn-lg btn-success" href="./areaPersonal.php">Volver al área Personal</a></p>
     
     
 </div>

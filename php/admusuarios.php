@@ -113,19 +113,19 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
                 $st = "";
                 $con = "";
 
-                header("location: admusuarios.php");
+                header("location: ./admusuarios.php");
                 exit;
             } else {
                 actualizaDatosUsuario($con, $email, $pass1, $nombre, $apellidos, $direccion);
 
-                header("location: admusuarios.php");
+                header("location: ./admusuarios.php");
                 exit;
             }
         } catch (PDOException $e) {
             echo $error = $e->getMessage();
             $pos = strpos($error, "Duplicate entry");
             if ($pos !== false)
-                $usuarioExistente = "<p>la cuenta con ese usuario ya existe, <a href='login.php?usuario=$email'>pulse aquí</a> para entrar con sus credenciales<p>";
+                $usuarioExistente = "<p>la cuenta con ese usuario ya existe, <a href='./login.php?usuario=$email'>pulse aquí</a> para entrar con sus credenciales<p>";
         }
     } else {
         $mensajeEdicion = "No se ha podido realizar la edición, revise todos los campos";
@@ -166,7 +166,7 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
 
         <h1>Administración usuarios</h1><br>
 
-        <a class='btn btn-secondary' href="admusuarios.php?crear=1">insertar Nuevo Usuario</a>
+        <a class='btn btn-secondary' href="./admusuarios.php?crear=1">insertar Nuevo Usuario</a>
 
         <?php echo "<p>$mensajeEdicion</p>" ?>
 
@@ -175,7 +175,7 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
 
 
             <?php echo $usuarioExistente ?>
-            <form action="admusuarios.php" method="POST">
+            <form action="./admusuarios.php" method="POST">
                 <?php if (isset($_GET['editar'])) { ?>
                     <label>Email: <input value="<?= $eEmail ?>" type="text" name="" id="" disabled></label>
                    <input value="<?= $eEmail ?>" type="text" name="email" id="" hidden>
@@ -225,8 +225,8 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
                     echo "<td>$prop</td>";
                 }
 
-                echo "<td><a class='btn btn-danger' href='admconfirmareliminar.php?eliminar=" . $usuario['id'] . "'>Eliminar</a></td>";
-                echo "<td><a class='btn btn-warning' href='admusuarios.php?editar=" . $usuario['id'] . "'>Editar</a></td>";
+                echo "<td><a class='btn btn-danger' href='./admconfirmareliminar.php?eliminar=" . $usuario['id'] . "'>Eliminar</a></td>";
+                echo "<td><a class='btn btn-warning' href='./admusuarios.php?editar=" . $usuario['id'] . "'>Editar</a></td>";
 
                 echo "</tr>";
             }

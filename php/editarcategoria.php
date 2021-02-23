@@ -22,7 +22,7 @@ elseif(isset($_POST['enviar']) ){
     if($idCat!="" && $nuevoNombreCat!="" ){
 
         if(actualizaCategoria($con,$idCat,$nuevoNombreCat)){
-            header("location: admcategorias.php");
+            header("location: ./admcategorias.php");
             exit;
 
         }else{
@@ -38,7 +38,7 @@ elseif(isset($_POST['enviar']) ){
 }
 
 else{
-    header("location: admcategorias.php");
+    header("location: ./admcategorias.php");
     exit;
 }
 
@@ -60,7 +60,7 @@ else{
     
 
 <div class="container">
-<form action="editarcategoria.php" class="mt-5" method="POST">
+<form action="./editarcategoria.php" class="mt-5" method="POST">
     <h4>Editar Categoría</h4>
     <br>
     <p><label for="cat"><b>Nombre Categoría: </b><input type="text" name="cat" value="<?=$nombreCategoria ?>" id="cat"></label></p>

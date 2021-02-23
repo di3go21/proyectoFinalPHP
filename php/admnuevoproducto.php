@@ -85,7 +85,7 @@ if (isset($_POST['enviar'])) {
                     guardaCategorias($con, $nombre, $categoriasRec);
 
 
-                    header("location: admnuevoproducto.php?insertar=ok");
+                    header("location: ./admnuevoproducto.php?insertar=ok");
                     exit;
                 }
             } else {
@@ -125,7 +125,7 @@ if (isset($_POST['enviar'])) {
             echo "<h3>¡Producto insertado correctamente!</h3>";
         ?>
 
-        <form action="admnuevoproducto.php" method="POST" class="row" enctype="multipart/form-data">
+        <form action="./admnuevoproducto.php" method="POST" class="row" enctype="multipart/form-data">
 
 
             <?php

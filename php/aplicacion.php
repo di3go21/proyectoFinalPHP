@@ -85,13 +85,13 @@ $productos = damePaginados($con, $offset, $num_prod_por_pagina );
                     if ($campo == "imagen")
                         echo "<img src='./public/img/$valor' height='120px'>";
                     elseif ($campo == "nombre")
-                        echo "<a href='producto.php?id=" . $producto['id'] . "'>$valor</a>";
+                        echo "<a href='./producto.php?id=" . $producto['id'] . "'>$valor</a>";
                     else
                         echo $valor;
                 }
             }
 
-            echo "<form action='insertaCarrito.php' method='POST'> ";
+            echo "<form action='./insertaCarrito.php' method='POST'> ";
             echo "<input type='hidden' name='cantidad' value='1'> ";
             echo "<input type='hidden' name='idProducto' value='" . $producto['id'] . "'> ";
             echo "<input type='submit' name='insertaACarrito' value='Añade al carrito'>";

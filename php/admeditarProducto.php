@@ -12,7 +12,7 @@ $producto = dameDatosProducto($con, $id);
 $categoriasDeProducto = dameCategoriasDeProducto($con, $id);
 $categorias = dameCategorias();
 if (empty($producto)) {
-    header("location: admproductos.php");
+    header("location: ./admproductos.php");
     exit;
 }
 
@@ -98,7 +98,7 @@ if (isset($_POST['enviar'])) {
                     actualizaCategoriasDeProducto($con, $id, $nombre, $categoriasRec);
 
 
-                    header("location: admeditarProducto.php?editar=ok");
+                    header("location: ./admeditarProducto.php?editar=ok");
                     exit;
                 }
             } else {
@@ -111,7 +111,7 @@ if (isset($_POST['enviar'])) {
                 actualizaCategoriasDeProducto($con, $id, $nombre, $categoriasRec);
 
 
-                header("location: admeditarProducto.php?editar=ok");
+                header("location: ./admeditarProducto.php?editar=ok");
                 exit;
             }
         }
@@ -143,7 +143,7 @@ if (isset($_POST['enviar'])) {
 
         <h2 class="display-4">Editar producto:</h2><br>
 
-        <form action="admeditarProducto.php" method="POST" class="row" enctype="multipart/form-data">
+        <form action="./admeditarProducto.php" method="POST" class="row" enctype="multipart/form-data">
 
             <?php
             if (!empty($error))

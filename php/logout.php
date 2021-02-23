@@ -16,9 +16,9 @@ if(isset($_SESSION['autenticado']) && $_SESSION['autenticado']=="SI"){
     }
     session_destroy();
 
-    header("refresh:5 , url=/index.html");
+    header("refresh:5 , url=./productos.php");
 }else{
-    header("location: /index.html");
+    header("location: ./../index.html");
     exit;
 }
 

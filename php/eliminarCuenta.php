@@ -27,7 +27,7 @@ if (isset($_GET['confirmacion']) && $_GET['confirmacion'] == "si") {
                 );
             }
             session_destroy();
-            header("location: confirmacionEliminado.php");
+            header("location: ./confirmacionEliminado.php");
             exit;
         } else {
             $mensaje = "error al intentar el borrado";
@@ -63,15 +63,15 @@ if (isset($_GET['confirmacion']) && $_GET['confirmacion'] == "si") {
                 <h1 class="text-center mb-5 mt-5">¿Está seguro de que desea eliminar su cuenta?</h1>
             </div>
             <div class="col-2">
-                <a class="btn btn-lg btn-danger" href="eliminarCuenta.php?confirmacion=si">SI</a>
+                <a class="btn btn-lg btn-danger" href="./eliminarCuenta.php?confirmacion=si">SI</a>
 
             </div>
             <div class="col-2">
-                <a class="btn btn-lg btn-success" href="areaPersonal.php">NO</a>
+                <a class="btn btn-lg btn-success" href="./areaPersonal.php">NO</a>
 
             </div>
             <div class="col-2">
-                <a class="btn btn-lg btn-primary" href="areaPersonal.php">Volver</a>
+                <a class="btn btn-lg btn-primary" href="./areaPersonal.php">Volver</a>
 
             </div>
             <div class="col-12">

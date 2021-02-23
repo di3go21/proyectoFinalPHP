@@ -8,7 +8,7 @@ if (isset($_GET["id"])) {
     $con = getConexion();
     $producto = dameDatosProducto($con, $id);
 } else {
-    header("location: aplicacion.php");
+    header("location: ./aplicacion.php");
     exit;
 }
 
@@ -59,7 +59,7 @@ if (isset($_GET["id"])) {
         if ($producto['unidadesDisponibles'] > 0) {
         ?>
 
-            <form action="insertaCarrito.php" method="POST">
+            <form action="./insertaCarrito.php" method="POST">
                 <input type="hidden" name="idProducto" value="<?php echo $producto['id'] ?>"><br>
                 <b>Cantidad: </b><input type="number" name="cantidad" value="1" min="1" max="<?php echo $producto['unidadesDisponibles'] ?>" id=""><br><br>
                  <b>Precio: </b><span><?= $producto['precio'] ?></span> € <br><br>
