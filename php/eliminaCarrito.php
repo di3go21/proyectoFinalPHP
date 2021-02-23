@@ -15,14 +15,8 @@ if(isset($_POST['eliminaProductos'])){
         foreach ($idsAEliminar as $key => $id) {
            eliminaDeCarrito($con,$id,$_SESSION['id']);
         }
-
     }
-
-
-
 }
-
-
 
  header("location: carrito.php");
 

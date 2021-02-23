@@ -42,23 +42,34 @@ else{
     exit;
 }
 
-?>
-
-<!DOCTYPE html>
+?><!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Editar Categoría App</title>
+  </head>
 <body>
-    <form action="editarcategoria.php" method="POST">
     
-        <p><label for="cat">Nombre Categoría: <input type="text" name="cat" value="<?=$nombreCategoria ?>" id="cat"></label></p>
-        <input type="hidden" name="id" value="<?= $idCat?>">
-        <input type="submit" name="enviar" value="Editar" id="cat">
-        <?php echo $error; ?>
-    </form>
+<?php include "./includes/menu.php" ?>
+    
+
+<div class="container">
+<form action="editarcategoria.php" class="mt-5" method="POST">
+    <h4>Editar Categoría</h4>
+    <br>
+    <p><label for="cat"><b>Nombre Categoría: </b><input type="text" name="cat" value="<?=$nombreCategoria ?>" id="cat"></label></p>
+    <input type="hidden" name="id" value="<?= $idCat?>">
+    <input type="submit" name="enviar" value="Editar" id="cat">
+    <?php echo $error; ?>
+</form>
+
+</div>
+    
 </body>
 </html>

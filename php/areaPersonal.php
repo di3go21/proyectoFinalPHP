@@ -124,7 +124,7 @@ if (isset($_POST['enviar'])) {
 
 
     <div class="container mt-5">
-        <h1>Estos son tus datos, los puedes personalizar si deseas:</h1>
+        <h1 class="text-center">Estos son tus datos, los puedes personalizar si deseas:</h1>
         <?php echo "<h3 class='text-danger'>$error</h3>"; ?>
         <form action="areaPersonal.php" class="form mt-5" method="POST">
 
@@ -154,6 +154,8 @@ if (isset($_POST['enviar'])) {
                     
                     <span class="error"><?php echo $passErr; ?></span><br>
                     </div>
+                    </div>
+                    <div class="col-md-6">
 
                     <div class="form-group">
                         <label for="nombre">Nombre: </label>
@@ -186,10 +188,9 @@ if (isset($_POST['enviar'])) {
 
 
         </form>
-        <br><br><br>
         <hr>
 
-        <?php if ($_SESSION['esAdmin'] == "NO") echo  " <h5>Si quieres <u class='text-danger'>eliminar</u> tu cuenta pulsa aquí:<button id='eliminarCuenta' class='btn btn-danger'> Eliminar Cuenta</button></h5>"  ?>
+        <?php if ($_SESSION['esAdmin'] == "NO") echo  " <h5 class='text-center mt-5 mb-5'>Si quieres <u class='text-danger'>eliminar</u> tu cuenta pulsa aquí:<button id='eliminarCuenta' class='btn btn-danger'> Eliminar Cuenta</button></h5>"  ?>
 
         <hr>
 

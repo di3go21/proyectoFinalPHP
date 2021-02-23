@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS tiendaguitarras2;
-USE tiendaguitarras2;
+CREATE DATABASE IF NOT EXISTS easymusica;
+USE easymusica;
 /* */
 create table USUARIO (
     id int PRIMARY KEY AUTO_INCREMENT,

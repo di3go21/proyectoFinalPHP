@@ -86,8 +86,8 @@ if (isset($_GET['orden']) && in_array($_GET['orden'], $orden)  && isset($_GET['t
         <?php
         if (!empty($productos)) {
 
-            echo "<table class='table table-striped'>";
-            echo "<tr>";
+            echo "<table class='table '>";
+            echo "<tr class='bg-light'>";
             foreach ($productos[0] as $key => $value) {
                 if ($key != "id" && $key != "descripcion") {
                     if (in_array($key, $orden))

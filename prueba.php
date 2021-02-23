@@ -12,6 +12,9 @@
   </head>
 
 <body>
+  
+<?php include "./includes/menu.php" ?>
+
         <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

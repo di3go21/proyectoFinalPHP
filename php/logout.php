@@ -44,7 +44,7 @@ if(isset($_SESSION['autenticado']) && $_SESSION['autenticado']=="SI"){
 
 <div class="container">
 
-<h2 class="mt-5">¡Hasta pronto <?=$nombre?>! será redirigido a la página principal en 5 sencs</h2>
+<h2 class="mt-5">¡Hasta pronto <?=$nombre?>! será redirigido a la página principal en 5 Segundos</h2>
     
 </div>
         <!-- Optional JavaScript; choose one of the two! -->

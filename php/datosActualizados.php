@@ -10,21 +10,30 @@ if(!isset($_GET['ok'])){
 $con=getConexion();
 actualizaVariablesEnSession($con, $_SESSION["email_usuario_autenticado"]);
 
-?>
-<!DOCTYPE html>
+?><!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos actualizados</title>
-</head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Datos Actualizados</title>
+  </head>
+
 <body>
-
-<?php include "./includes/menu.php"; ?>
-
-<h3>Datos actualizados correctamente</h3>
-<p><a href="areaPersonal.php">Volver al área Personal</a></p>
+  
+<?php include "./includes/menu.php" ?>
+<br><br>
+<div class="container">
+<h2>Datos actualizados correctamente</h2>
+<br><br>
+<p><a class="btn btn-lg btn-success" href="areaPersonal.php">Volver al área Personal</a></p>
     
+    
+</div>
+
 </body>
 </html>

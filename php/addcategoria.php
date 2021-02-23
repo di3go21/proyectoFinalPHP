@@ -25,25 +25,37 @@ if(isset($_POST['enviar'])){
 
 }
 
-?><!DOCTYPE html>
+?><!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Adm Añade Categoría</title>
+  </head>
+
 <body>
 
-<h1>Añade una categoría</h1>
+<?php include "./includes/menu.php" ?><br><br>
+<div class="container">
 
-<form action="addcategoria.php" method="POST">
+    <h1>Añade una categoría</h1><br><br>
+
+    <form action="addcategoria.php" method="POST">
+        
+        <p><label for="cat">Nombre Categoría: <input type="text" name="cat"  id="cat"></label></p>
+        
+        <input type="submit" class="btn btn-success" name="enviar" value="Añadir" id="cat">
+        <?php echo "<p class='text-danger'>$error</p>"; ?>
+    </form>
     
-    <p><label for="cat">Nombre Categoría: <input type="text" name="cat"  id="cat"></label></p>
-    
-    <input type="submit" name="enviar" value="Añadir" id="cat">
-    <?php echo $error; ?>
-</form>
-    
+
+</div>
+
+
 </body>
 </html>

@@ -34,7 +34,6 @@ BAJAS
     hora
 
 
-LOGADMINS -- file - usuario - fecha - equipo 
 
 PRODUCTO
     id
@@ -65,8 +64,3 @@ VENTA_ARTICULO
     cantidad
     precio
     
-
-CAPCHAS
-    id
-    pregunta
-    respuesta

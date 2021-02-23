@@ -5,11 +5,11 @@ include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 include "./includes/sanear.php";
 
-$con=getConexion();
-$usuarios=dameUsuariosParaAdministrar($con);
+$con = getConexion();
+$usuarios = dameUsuariosParaAdministrar($con);
 $nombreErr = $apellidosErr = $emailErr = $direccionErr = $passErr = "";
 $eNombre = $eApellidos = $eEmail = $eDireccion = $mensajeEdicion = "";
-$usuarioExistente="";
+$usuarioExistente = "";
 if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
     $nombre = sanear("nombre");
     $email = sanear("email");
@@ -17,7 +17,7 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
     $pass2 = sanear("pass2");
     $apellidos = sanear("apellidos");
     $direccion = sanear("direccion");
-    
+
 
     $todosLosCamposSonValidos = true;
 
@@ -95,149 +95,148 @@ if (isset($_POST['enviar']) || isset($_POST['confirmaEditar'])) {
         }
     }
 
-    if ($todosLosCamposSonValidos){
-         $fechaRegistro=date("Y-m-d"); 
+    if ($todosLosCamposSonValidos) {
+        $fechaRegistro = date("Y-m-d");
 
 
-        $pass1=md5($pass1);
-        try{
-            if(isset($_POST['enviar']) ){
-                echo "VAMOS A INSERTAR";
-                $st=$con->prepare("INSERT into USUARIO
+        $pass1 = md5($pass1);
+        try {
+            if (isset($_POST['enviar'])) {
+                $st = $con->prepare("INSERT into USUARIO
                  (nombre,apellidos,password,direccion,email,fechaRegistro) values 
                 (?,?,?,?,?,?)");
-                $st->execute([$nombre,$apellidos,$pass1,$direccion,$email,$fechaRegistro]);
-                $rs=$con->prepare("INSERT into alta
+                $st->execute([$nombre, $apellidos, $pass1, $direccion, $email, $fechaRegistro]);
+                $rs = $con->prepare("INSERT into alta
                         (email,nombre,apellidos,fechaRegistro,hora) values 
                     (?,?,?,?,?) ");
-                $rs->execute([$email,$nombre,$apellidos,$fechaRegistro,date("H:i:s")]);
-                $st="";
-                $con="";
-            
-                echo "insertado";
-            header("location: admusuarios.php");
-            exit;
-            }else{
-                echo "VAMOS A ACTUALIZAR";
-                actualizaDatosUsuario($con,$email,$pass1,$nombre,$apellidos,$direccion);
-                
+                $rs->execute([$email, $nombre, $apellidos, $fechaRegistro, date("H:i:s")]);
+                $st = "";
+                $con = "";
+
                 header("location: admusuarios.php");
                 exit;
+            } else {
+                actualizaDatosUsuario($con, $email, $pass1, $nombre, $apellidos, $direccion);
 
+                header("location: admusuarios.php");
+                exit;
             }
-            
-        }catch(PDOException $e){
-            echo $error=$e->getMessage();
+        } catch (PDOException $e) {
+            echo $error = $e->getMessage();
             $pos = strpos($error, "Duplicate entry");
-            if($pos!==false)
-                $usuarioExistente="<p>la cuenta con ese usuario ya existe, <a href='login.php?usuario=$email'>pulse aquí</a> para entrar con sus credenciales<p>";
-                
-            
+            if ($pos !== false)
+                $usuarioExistente = "<p>la cuenta con ese usuario ya existe, <a href='login.php?usuario=$email'>pulse aquí</a> para entrar con sus credenciales<p>";
         }
-        
-    }else{
-        $mensajeEdicion="No se ha podido realizar la edición, revise todos los campos";
+    } else {
+        $mensajeEdicion = "No se ha podido realizar la edición, revise todos los campos";
     }
-}elseif(isset($_GET['editar'])){
-   $emailParaEditar=dameCampoUsuario($con,"email",$_GET['editar']);
-   $usuarioAEditar=dameUsuario($con,$emailParaEditar);
-   if(!empty($usuarioAEditar)){
-        $eNombre=$usuarioAEditar['nombre'];
-        $eApellidos=$usuarioAEditar['apellidos'];
-        $eEmail=$usuarioAEditar['email'];
-        $eDireccion=$usuarioAEditar['direccion'];
-
-   }
-
+} elseif (isset($_GET['editar'])) {
+    $emailParaEditar = dameCampoUsuario($con, "email", $_GET['editar']);
+    $usuarioAEditar = dameUsuario($con, $emailParaEditar);
+    if (!empty($usuarioAEditar)) {
+        $eNombre = $usuarioAEditar['nombre'];
+        $eApellidos = $usuarioAEditar['apellidos'];
+        $eEmail = $usuarioAEditar['email'];
+        $eDireccion = $usuarioAEditar['direccion'];
+    }
 }
 
-
-
-?><!DOCTYPE html>
+?>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Adm-Usuarios</title>
 </head>
+
 <body>
 
+    <?php include "./includes/menu.php" ?>
+    <br><br>
+
+    <div class="container">
 
 
-<?php include "./includes/menu.php"; ?>
+        <h1>Administración usuarios</h1><br>
 
-<h1>administracion usuarios</h1>
+        <a class='btn btn-secondary' href="admusuarios.php?crear=1">insertar Nuevo Usuario</a>
 
-<a href="admusuarios.php?crear=1">insertar Nuevo Usuario</a>
+        <?php echo "<p>$mensajeEdicion</p>" ?>
 
-<?php echo "<p>$mensajeEdicion</p>" ?>
-
-<?php if(isset($_GET['crear']) && $_GET['crear']=="1" || isset($_POST['enviar'])   || isset($_GET['editar'])){
- ?>
- 
- 
- <?php echo $usuarioExistente ?>
- <form action="admusuarios.php" method="POST">
-    <?php if(isset($_GET['editar'])){?>
-            <label>Email<input  value="<?=$eEmail?>" type="text" name="" id="" disabled></label>
-            <label>Email<input  value="<?=$eEmail?>" type="text" name="email" id="" hidden></label>
-    <?php  }else{?>
-          <label>Email<input  value="<?=$eEmail?>" type="text" name="email" id="" ></label>
-    <?php   }?>
-        <span class="error"><?php echo $emailErr; ?></span><br>
-
-        <label>Password<input  type="text" name="pass1" id=""></label><br>
-        <label>Repite Password<input type="text" name="pass2" id=""></label>
-        <small>Una mayuscula, una minúscula y un numero y longitud mayort que 8</small>
-        <span class="error"><?php echo $passErr; ?></span><br>
-
-        <label>Nombre<input value="<?=$eNombre?>" type="text" name="nombre" id=""></label>
-        <span class="error"><?php echo $nombreErr; ?></span><br>
-
-        <label>Apellidos<input value="<?=$eApellidos?>" type="text" name="apellidos" id=""></label>
-        <span class="error"><?php echo $apellidosErr; ?></span><br>
-
-        <label>direccion<input  value="<?=$eDireccion?>" type="text" name="direccion" id=""></label>
-        <?php if (isset($_GET['editar']))
-        echo "<input type='submit' value='Insertar' name='confirmaEditar'>";
-        else
-
-        echo "<input type='submit' value='Insertar' name='enviar'>"; ?>
-    </form>
- 
- <?php
-};?>
-
-<table>
-<tr>
-   <th>ID</th>
-   <th>Email</th>
-   <th>Nombre</th>
-   <th>Apellido</th>
-   <th>Direccion</th>
-   <th>Fecha de registro</th>
-   <th>Accion</th>
-</tr>
-<?php
-   foreach ($usuarios as  $usuario) {
-       
-   echo "<tr>";
-       foreach ($usuario as $prop) {
-           
-       echo "<td>$prop</td>";  
-       }     
-
-   echo "<td><a href='admconfirmareliminar.php?eliminar=".$usuario['id']."'>Eliminar</a></td>";
-   echo "<td><a href='admusuarios.php?editar=".$usuario['id']."'>Editar</a></td>";
-       
-   echo "</tr>";
-   }
-?>
+        <?php if (isset($_GET['crear']) && $_GET['crear'] == "1" || isset($_POST['enviar'])   || isset($_GET['editar'])) {
+        ?>
 
 
-</table>
-    
+            <?php echo $usuarioExistente ?>
+            <form action="admusuarios.php" method="POST">
+                <?php if (isset($_GET['editar'])) { ?>
+                    <label>Email: <input value="<?= $eEmail ?>" type="text" name="" id="" disabled></label>
+                   <input value="<?= $eEmail ?>" type="text" name="email" id="" hidden>
+                <?php  } else { ?>
+                    <label>Email: <input value="<?= $eEmail ?>" type="text" name="email" id=""></label>
+                <?php   } ?>
+                <span class="error"><?php echo $emailErr; ?></span><br>
+
+                <label><?php if (isset($_GET['editar'])) echo "Nueva ";?>Password: <input type="text" name="pass1" id=""></label><br>
+                <label>Repite Password: <input type="text" name="pass2" id=""></label><br>
+                <small>Una mayuscula, una minúscula y un numero y longitud mayor que 8</small>
+                <span class="error"><?php echo $passErr; ?></span><br>
+
+                <label>Nombre: <input value="<?= $eNombre ?>" type="text" name="nombre" id=""></label>
+                <span class="error"><?php echo $nombreErr; ?></span><br>
+
+                <label>Apellidos: <input value="<?= $eApellidos ?>" type="text" name="apellidos" id=""></label>
+                <span class="error"><?php echo $apellidosErr; ?></span><br>
+
+                <label>Dirección: <input value="<?= $eDireccion ?>" type="text" name="direccion" id=""></label>
+                <?php if (isset($_GET['editar']))
+                    echo "<input type='submit' value='Insertar' name='confirmaEditar'>";
+                else
+
+                    echo "<input type='submit' value='Insertar' name='enviar'>"; ?>
+            </form>
+
+        <?php
+        }; ?>
+
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Direccion</th>
+                <th>Fecha de registro</th>
+                <th>Accion</th>
+            </tr>
+            <?php
+            foreach ($usuarios as  $usuario) {
+
+                echo "<tr>";
+                foreach ($usuario as $prop) {
+
+                    echo "<td>$prop</td>";
+                }
+
+                echo "<td><a class='btn btn-danger' href='admconfirmareliminar.php?eliminar=" . $usuario['id'] . "'>Eliminar</a></td>";
+                echo "<td><a class='btn btn-warning' href='admusuarios.php?editar=" . $usuario['id'] . "'>Editar</a></td>";
+
+                echo "</tr>";
+            }
+            ?>
+
+        </table>
+
+
+    </div>
+
 </body>
-</html>
 
+</html>

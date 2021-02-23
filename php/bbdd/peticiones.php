@@ -696,3 +696,30 @@ function informeVentasNombreCantidadCoste(PDO $con){
         echo $e->getMessage();
     }
 }
+
+function dameAltas(PDO $con){
+    $arr=[];
+    $query="SELECT * from alta ";
+    try {
+        $st=$con->query($query);
+        $arr= $st->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $arr;
+
+}
+
+
+function dameBajas(PDO $con){
+    $arr=[];
+    $query="SELECT * from baja ";
+    try {
+        $st=$con->query($query);
+        $arr= $st->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+    return $arr;
+}
+?>

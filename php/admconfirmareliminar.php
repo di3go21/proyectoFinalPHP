@@ -25,27 +25,43 @@ if (isset($_GET['confirmar']) && $_GET['confirmar'] == "si") {
     }
 }
 
-?>
-<!DOCTYPE html>
+?><!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Inicio App</title>
+  </head>
 
 <body>
+  
+<?php include "./includes/menu.php" ?><br><br>
 
-    <h3>seguro que quieres eliminar el usuario :</h3>
-    <?php echo "<pre>";
-    print_r($usuario);
-    echo "</pre>";
+<div class="container">
 
-    echo "<a href='admconfirmareliminar.php?eliminar=$id&confirmar=si'>SI</a>";
+<h3>¿Seguro que quieres eliminar este usuario?</h3><br><br>
+    <?php 
+    echo "<ul>";
+
+    foreach ($usuario as $key => $value) {
+        echo "<li><b>$key: </b>$value</li>";
+    }
+    echo "</ul>";
+
+    echo "<a class='btn btn-danger btn-lg' href='admconfirmareliminar.php?eliminar=$id&confirmar=si'>SI</a>";
     ?>
-    <a href="admusuarios.php">NO</a>
+    <a  class='btn btn-secondary btn-lg' href="admusuarios.php">NO</a>
+
+
+
+
+
+</div>
 
 
 </body>

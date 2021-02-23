@@ -5,53 +5,104 @@ include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
 include "./includes/sanear.php";
 $con = getConexion();
+//en este apartado ponemos en práctica de como trabajar con php y JS al mismo tiempo:
 $datos = json_encode(informeVentasNombreCantidadCoste($con));
+$altas = json_encode(dameAltas($con));
+$bajas = json_encode(dameBajas($con));
 
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>Informes Adm</title>
     <style>
-        
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
-        var loco = <?= $datos ?>;
-        var locoOriginal = loco.concat();
-        var maximo = Math.max.apply(Math, loco.map(function(o) {
+        var datos = <?= $datos ?>;
+        var altas = <?= $altas ?>;
+        var bajas = <?= $bajas ?>;
+        var datosOriginales = datos.concat();
+        var maximo = Math.max.apply(Math, datos.map(function(o) {
             return o['Unidades vendidas'];
         }));
-        loco.sort(loco2);
+        datos.sort(ordenaPorUnidadesVendidas);
 
-        function loco2(a, b) {
-            if (a['Unidades vendidas'] < b['Unidades vendidas'])
+        function ordenaPorUnidadesVendidas(a, b) {
+            if (parseInt(a['Unidades vendidas']) < parseInt(b['Unidades vendidas']))
                 return 1;
-            else if (a['Unidades vendidas'] > b['Unidades vendidas'])
+            else if (parseInt(a['Unidades vendidas']) > parseInt(b['Unidades vendidas']))
                 return -1;
             return 0;
         }
 
-        function loco3(a, b) {
+        function ordenaPorIngreso(a, b) {
             if (parseFloat(a['Ingreso acumulado']) < parseFloat(b['Ingreso acumulado']))
                 return 1;
             else if (parseFloat(a['Ingreso acumulado']) > parseFloat(b['Ingreso acumulado']))
                 return -1;
             return 0;
         }
-        var top5 = loco.splice(0, 5);
-        var nombres = locoOriginal.sort(loco2).map((a) => a['Producto']);
-        var unidadesVendidas = locoOriginal.sort(loco2).map((a) => a['Unidades vendidas']);
-
-
-        var nombres2 = locoOriginal.sort(loco3).map((a) => a['Producto']);
-        var ingresosVendidas2 = locoOriginal.sort(loco3).map((a) => a['Ingreso acumulado']);
+        var top5Ventas = datos.sort(ordenaPorUnidadesVendidas).splice(0, 5);
+        var nombresVentas = top5Ventas.map((a) => a['Producto']);
+        var unidadesVendidas = top5Ventas.map((a) => a['Unidades vendidas']);
+        var top5Ingresos = datosOriginales.sort(ordenaPorIngreso).splice(0, 5);
+        var nombresIngresos = top5Ingresos.map((a) => a['Producto']);
+        var ingresosOrdenados = top5Ingresos.map((a) => a['Ingreso acumulado']);
 
         onload = function() {
+
+            $botonAltas=$("#altas");
+            $botonBajas=$("#Bajas");
+            $capaAB=$("#altasybajas");
+
+            $("#altas").click(function(){           
+                $capaAB.empty();
+                $table=$("<table></table>").appendTo($capaAB).addClass("table").addClass("table-striped");
+                $tr=$("<tr></tr>").appendTo($table);
+                for (const key in altas[0]) {
+                    $("<th></th>").text(key).appendTo($tr);
+                    
+                }
+                for (const key in altas) {
+                    $tr=$("<tr></tr>").appendTo($table);
+                    for (const campo in altas[key]){
+                        $("<td></td>").text(altas[key][campo]).appendTo($tr);
+                    }
+                    
+                }
+            });   
+            
+            $("#bajas").click(function(){
+                
+                $capaAB.empty();
+                $table=$("<table></table>").appendTo($capaAB).addClass("table table-striped");
+                $tr=$("<tr></tr>").appendTo($table);
+                for (const key in bajas[0]) {
+                    $("<th></th>").text(key).appendTo($tr);
+                    
+                }
+                for (const key in bajas) {
+                    $tr=$("<tr></tr>").appendTo($table);
+                    for (const campo in bajas[key]){
+                        $("<td></td>").text(bajas[key][campo]).appendTo($tr);
+                    }
+                    
+                }
+            }); 
+            
+                ////esto es de charts.js
+
+
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
@@ -59,7 +110,7 @@ $datos = json_encode(informeVentasNombreCantidadCoste($con));
 
                 // The data for our dataset
                 data: {
-                    labels: nombres,
+                    labels: nombresVentas,
                     datasets: [{
                         label: 'Ventas del top 5',
                         backgroundColor: 'rgb(255, 99, 132)',
@@ -88,12 +139,12 @@ $datos = json_encode(informeVentasNombreCantidadCoste($con));
 
                 // The data for our dataset
                 data: {
-                    labels: nombres2,
+                    labels: nombresIngresos,
                     datasets: [{
                         label: 'Ingresos del top 5',
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
-                        data: ingresosVendidas2
+                        data: ingresosOrdenados
                     }]
                 },
 
@@ -116,18 +167,37 @@ $datos = json_encode(informeVentasNombreCantidadCoste($con));
 <body>
 
 
-    <div style="width:1000px;height:440px">
-        <canvas id="myChart"></canvas>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div style="width:1000px;height:2440px">
-        <canvas id="myChart2"></canvas>
+    <?php include "./includes/menu.php" ?>
+    <br><br>
+    <div class="container">
+        <h1>Área de informes</h1>
+        <h2 class="display-4 mt-5">Top 5 Ventas:</h2>
+        <div style="width:500px;height:300px">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <h2 class="display-4 mt-5">Top 5 Ingresos:</h2>
+        <div style="width:600px;height:300px">
+            <canvas id="myChart2"></canvas>
+        </div>
     </div>
 
+
+    <h2 class="btn btn-secondary mt-5" id="altas">Ver altas de usuarios:</h2>
+
+
+    <h2 class="btn btn-secondary mt-5" id="bajas">Ver Bajas de Usuarios:</h2>
+
+    <div id="altasybajas">
+        Haz click en algún botón.
+    
+    </div>
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+   
 </body>
 
 </html>

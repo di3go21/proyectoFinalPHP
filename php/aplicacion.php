@@ -31,11 +31,11 @@ $offset = (($pagina - 1) * $num_prod_por_pagina);
 $productos = damePaginados($con, $offset, $num_prod_por_pagina );
 ?><!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
@@ -49,21 +49,17 @@ $productos = damePaginados($con, $offset, $num_prod_por_pagina );
         }
       
     </script>
-
-</head>
+  </head>
 
 <body>
+  
+<?php include "./includes/menu.php" ?>
 
-
-
-
-
-    <?php include "./includes/menu.php" ?>
 
     <div class="container">
 
 
-        <h2 class="mt-5 mb-5">bienvenido a la app</h2>
+        <h2 class="mt-5 mb-5">Bienvenido a Easy Música, tu tienda de instrumentos favorita</h2>
 
 
 
