@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE DATABASE IF NOT EXISTS easymusica;
-USER easymusica;
+USE easymusica;
 
 CREATE TABLE `alta` (
   `id` int(11) NOT NULL,
