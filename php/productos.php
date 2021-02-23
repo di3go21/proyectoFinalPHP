@@ -28,7 +28,6 @@ if (isset($_GET['orden']) && in_array($_GET['orden'], $orden)  && isset($_GET['t
 }
 
 
-
 ?>
 <!doctype html>
 <html lang="en">

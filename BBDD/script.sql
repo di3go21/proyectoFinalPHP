@@ -52,7 +52,7 @@ insert into USUARIO (email,password,nombre,apellidos,direccion,fechaRegistro,esA
 
 create table PRODUCTO (
     id int PRIMARY KEY AUTO_INCREMENT,
-    nombre varchar(30) NOT NULL UNIQUE,
+    nombre varchar(50) NOT NULL UNIQUE,
     descripcion text(1000) NOT NULL,
     precio decimal(7,2) NOT NULL,
     unidadesDisponibles int NOT NULL,

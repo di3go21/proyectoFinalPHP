@@ -1,6 +1,7 @@
 <?php
 include "./bbdd/conexion.php";
 include "./bbdd/peticiones.php";
+session_start();
 $producto = [];
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
@@ -40,8 +41,6 @@ if (isset($_GET["id"])) {
 </head>
 
 <body>
-
-
     <?php include "./includes/menu.php" ?>
 
 

@@ -38,13 +38,13 @@ if (isset($_POST['enviar'])) {
         $error[] = "El campo nombre es obligatorio";
     elseif ($existe == "1")
         $error[] = "Un producto con ese nombre ya existe";
-    elseif (!preg_match("/^[a-zA-ZñÑçÇáéúíóÁÉÍÓÚÜü 0-9]{5,25}$/", $nombre)) {
+    elseif (!preg_match("/^[a-zA-ZñÑçÇáéúíóÁÉÍÓÚÜü 0-9]{5,50}$/", $nombre)) {
         $error[] = "Formato de nombre inválido";
     }
 
     if (empty($desc))
         $error[] = "El campo descripción es obligatorio";
-    elseif (!preg_match("/^[a-zA-ZñÑçÇáéúíóÁÉÍÓÚÜü 0-9\-\/,.;\\\!?¿¿'<>\"&%\$&%()=\n\r]{10,1000}$/", $desc)) {
+    elseif (!preg_match("/^[a-zA-ZñÑçÇáéúíóÁÉÍÓÚÜü 0-9\-\/,:.;\\\!?¿¿'<>\"&%\$&%()=\n\r]{10,1000}$/", $desc)) {
         $error[] = "Formato de descripción inválido";
     }
 
